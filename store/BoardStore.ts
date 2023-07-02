@@ -3,8 +3,8 @@ import { create } from 'zustand'
 
 
 export interface BoardState {
-  board:Board;
-  getBoard:()=> void;
+  board: Board;
+  getBoard: () => void;
 }
 
 /**
@@ -29,9 +29,9 @@ export const useBoardStore = create((set) => ({
   board: {
     columns: new Map<TypedColumn, Column>()
   },
-  getBoard: async() =>{
-    const board  =await getTodosGroupedByColumn();
-    set({board});
+  getBoard: async () => {
+    const board = await getTodosGroupedByColumn();
+    set({ board });
   }
 }))
 

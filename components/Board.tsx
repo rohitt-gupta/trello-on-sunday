@@ -39,8 +39,8 @@ function Board() {
               Array.from(board.columns.entries()).map(([id, column], index) => (
                 <Column
                   key={id}
-                  id={id}
-                  todos={column.todos}
+                  id={id as TypedColumn}
+                  todos={(column as Column).todos}
                   index={index}
                 />
               ))}
