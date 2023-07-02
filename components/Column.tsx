@@ -16,7 +16,6 @@ const idToColumnText: {
   inprogress: "In Progress",
   done: "Done",
 };
-console.log(idToColumnText);
 
 function Column(props: ColumnProps) {
   const { id, todos, index } = props;
