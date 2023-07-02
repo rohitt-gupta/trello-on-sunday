@@ -9,10 +9,11 @@ function Board() {
   /**
    * Got the state function from zustand boardState.
    */
-  const [board, getboard, setBoardState] = useBoardStore((state: any) => [
+  const [board, getboard, setBoardState, updateTodoInDB] = useBoardStore((state: any) => [
     state.board,
     state.getBoard,
     state.setBoardState,
+    state.updateTodoInDB,
   ]);
 
   useEffect(() => {
@@ -90,7 +91,7 @@ function Board() {
         id: finishCol.id,
         todos: finishTodos,
       });
-
+      updateTodoInDB(todoMoved, finishCol.id);
       setBoardState({ ...board, columns: newColumns })
 
     }
