@@ -8,6 +8,10 @@ export interface BoardState {
   getBoard: () => void;
   setBoardState: (board: Board) => void;
   updateTodoInDB: (todo: Todo, columnId: TypedColumn) => void;
+
+  searchString: string;
+  setSearchString: (searchString: string) => void;
+
 }
 
 /**
@@ -32,6 +36,10 @@ export const useBoardStore = create((set) => ({
   board: {
     columns: new Map<TypedColumn, Column>()
   },
+
+  searchString: '',
+  setSearchString: (searchString: string) => set({ searchString }),
+
   getBoard: async () => {
     const board = await getTodosGroupedByColumn();
     set({ board });
