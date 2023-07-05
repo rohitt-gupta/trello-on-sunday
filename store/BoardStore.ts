@@ -38,7 +38,11 @@ export const useBoardStore = create((set) => ({
   },
 
   searchString: '',
-  setSearchString: (searchString: string) => set({ searchString }),
+  setSearchString: (searchString: string) => {
+    console.log("hello zustand", searchString);
+
+    set({ searchString })
+  },
 
   getBoard: async () => {
     const board = await getTodosGroupedByColumn();

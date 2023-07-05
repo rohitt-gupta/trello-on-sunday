@@ -12,7 +12,7 @@ function Board() {
   const [board, getboard, setBoardState, updateTodoInDB] = useBoardStore((state: any) => [
     state.board,
     state.getBoard,
-    state.setBoardState,
+    state.setBoardState as (searchString: string) => void,
     state.updateTodoInDB,
   ]);
 

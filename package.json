@@ -19,6 +19,7 @@
     "eslint-config-next": "13.4.7",
     "heroicons": "^2.0.18",
     "next": "13.4.7",
+    "openai": "^3.3.0",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-avatar": "^5.0.3",
