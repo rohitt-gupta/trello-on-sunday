@@ -1,4 +1,4 @@
-import { databases } from '@/appwrite';
+import { databases, storage } from '@/appwrite';
 import { getTodosGroupedByColumn } from '@/lib/getTodosGroupedByColumn';
 import { create } from 'zustand'
 
@@ -11,6 +11,10 @@ export interface BoardState {
 
   searchString: string;
   setSearchString: (searchString: string) => void;
+
+
+  deleteTask: (taskIndex: number, todoId: Todo, id: TypedColumn) => void;
+
 
 }
 
@@ -32,23 +36,45 @@ export interface BoardState {
  * We got our function.
  */
 
-export const useBoardStore = create((set) => ({
+export const useBoardStore = create((set, get) => ({
   board: {
     columns: new Map<TypedColumn, Column>()
   },
 
   searchString: '',
-  setSearchString: (searchString: string) => {
-    console.log("hello zustand", searchString);
+  setSearchString: (searchString: string) => set({ searchString }),
 
-    set({ searchString })
-  },
 
   getBoard: async () => {
     const board = await getTodosGroupedByColumn();
     set({ board });
   },
   setBoardState: (board: Board) => set({ board }),
+
+  deleteTask: async (taskIndex: number, todo: Todo, id: TypedColumn) => {
+    console.log(taskIndex, todo, id);
+
+    const newColumns = new Map((get() as any).board.columns);
+
+    newColumns.get(id)?.todos.splice(taskIndex, 1);
+
+    set({ board: { columns: newColumns } });
+
+    if (todo.image) {
+      await storage.deleteFile(todo.image.bucketId, todo.image.fileId)
+    }
+
+    console.log(todo.image);
+
+
+    await databases.deleteDocument(
+      process.env.NEXT_PUBLIC_DATABASE_ID!,
+      process.env.NEXT_PUBLIC_TODOS_COLLECTION_ID!,
+      todo.$id
+    )
+
+
+  },
 
   updateTodoInDB: async (todo: Todo, columnId: TypedColumn) => {
     await databases.updateDocument(

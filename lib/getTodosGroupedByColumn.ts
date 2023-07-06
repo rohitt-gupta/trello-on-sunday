@@ -112,12 +112,20 @@ export const getTodosGroupedByColumn = async () => {
     }
   }
 
+
+  //   sort columns by columnTypes
+
+  const sortedColumns = new Map(
+    Array.from(columns.entries()).sort(
+      (a, b) => columntypes.indexOf(a[0]) - columntypes.indexOf(b[0])
+    )
+  );
   // now we will always have a map of three
   // now we have to sort the columns 
   // console.log("todoAfter", columns);
 
   const board: Board = {
-    columns: columns,
+    columns: sortedColumns,
   }
 
   return board
