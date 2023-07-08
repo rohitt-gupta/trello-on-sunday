@@ -3,6 +3,7 @@ import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import TodoCard from "./TodoCard";
 import { useBoardStore } from "@/store/BoardStore";
+import { useModalStore } from "@/store/ModalStore";
 
 type ColumnProps = {
   id: TypedColumn;
@@ -20,6 +21,7 @@ const idToColumnText: {
 
 function Column(props: ColumnProps) {
   const [searchString] = useBoardStore((state: any) => [state.searchString]);
+  const [openModal] = useModalStore((state: any) => [state.openModal]);
   const { id, todos, index } = props;
   return (
     <Draggable draggableId={id} index={index}>
@@ -80,7 +82,7 @@ function Column(props: ColumnProps) {
                   })}
                   {provided.placeholder}
                   <div className='flex items-end justify-end p-2'>
-                    <button className='text-green-500 hover:text-green-600'>
+                    <button onClick={openModal} className='text-green-500 hover:text-green-600'>
                       <PlusCircleIcon className='h-10 w-10' />
                     </button>
                   </div>
