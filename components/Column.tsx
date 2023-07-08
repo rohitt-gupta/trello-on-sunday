@@ -20,9 +20,18 @@ const idToColumnText: {
 };
 
 function Column(props: ColumnProps) {
-  const [searchString] = useBoardStore((state: any) => [state.searchString]);
-  const [openModal] = useModalStore((state: any) => [state.openModal]);
   const { id, todos, index } = props;
+
+
+  const [setNewTaskType, searchString] = useBoardStore((state) => [state.setNewTaskType, state.searchString]);
+  const [openModal] = useModalStore((state) => [state.openModal]);
+
+
+  const handleAddTodo = () => {
+    setNewTaskType(id)
+    openModal()
+  }
+
   return (
     <Draggable draggableId={id} index={index}>
       {(provided) => (
@@ -82,7 +91,7 @@ function Column(props: ColumnProps) {
                   })}
                   {provided.placeholder}
                   <div className='flex items-end justify-end p-2'>
-                    <button onClick={openModal} className='text-green-500 hover:text-green-600'>
+                    <button onClick={handleAddTodo} className='text-green-500 hover:text-green-600'>
                       <PlusCircleIcon className='h-10 w-10' />
                     </button>
                   </div>

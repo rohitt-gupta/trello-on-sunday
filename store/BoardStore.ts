@@ -141,40 +141,6 @@ export const useBoardStore = create<BoardState>()((set, get) => ({
       };
     });
   },
-
-  // addTask: async (todo, columnId, image) => {
-  //   let file: Image | undefined;
-
-  //   // image upload to appwrite section 
-  //   if (image) {
-  //     const fileUploaded = await uploadImage(image);
-  //     if (fileUploaded) {
-  //       file = {
-  //         bucketId: fileUploaded.bucketId,
-  //         fileId: fileUploaded.$id,
-  //       }
-  //     }
-  //   }
-
-  //   // creating new document
-  //   const { $id } = await databases.createDocument(
-  //     process.env.NEXT_PUBLIC_DATABASE_ID!,
-  //     process.env.NEXT_PUBLIC_TODOS_COLLECTION_ID!,
-  //     ID.unique(),
-  //     {
-  //       title: todo,
-  //       status: columnId,
-  //       ...(file && { image: JSON.stringify(file) }),
-  //     }
-  //   );
-
-  //   set({ newTaskInput: "" });
-
-  //   set((state) => {
-
-  //   })
-
-  // },
   updateTodoInDB: async (todo, columnId) => {
     await databases.updateDocument(
       process.env.NEXT_PUBLIC_DATABASE_ID!,

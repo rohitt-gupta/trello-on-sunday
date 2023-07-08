@@ -15,7 +15,7 @@ export default function Modal() {
     state.closeModal,
   ]);
 
-  const [addTask, newTaskType, newTaskInput, setNewTaskInput, image, setImage] = useBoardStore((state) => [
+  const [newTaskInput, setNewTaskInput, image, setImage, addTask, newTaskType] = useBoardStore((state) => [
     state.newTaskInput,
     state.setNewTaskInput,
     state.image,
