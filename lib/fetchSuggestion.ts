@@ -2,7 +2,7 @@ import formatTodosForAI from "./formatTodosForAI";
 
 const fetchSuggestion = async (board: Board) => {
   const todos = formatTodosForAI(board);
-  console.log("FORMATTED TODOS to send >>> ", todos);
+  // console.log("FORMATTED TODOS to send >>> ", todos);
 
   const res = await fetch("/api/generateSummary", {
     method: "POST",
@@ -13,10 +13,11 @@ const fetchSuggestion = async (board: Board) => {
   });
 
   const responseJson = await res.json();
-  console.log("API Response:", responseJson);
+  // console.log("API Response:", responseJson);
 
-  const { message } = responseJson.choices[0];
+  const { content } = responseJson;
+  // console.log("content: ", content);
 
-  return message.content;
+  return content;
 };
 export default fetchSuggestion;
